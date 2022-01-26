@@ -48,7 +48,7 @@ const DropDown = () => {
   );
 };
 const Search = () => {
-  const [sortToggle, setSortToggle]=useState(false);
+  const [sortToggle, setSortToggle] = useState(false);
 
   return (
     <div className="py-5">
@@ -73,11 +73,11 @@ const Search = () => {
               id="options-menu"
               aria-haspopup="true"
               aria-expanded="true"
-              onClick={()=>setSortToggle(!sortToggle)}
+              onClick={() => setSortToggle(!sortToggle)}
             >
               Sort By <BiCaretDown className="ml-2" />
             </button>
-            { sortToggle && <DropDown /> }
+            {sortToggle && <DropDown />}
           </div>
         </div>
       </div>
