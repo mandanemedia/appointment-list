@@ -7,6 +7,14 @@ import "./App.css";
 
 const App = () => {
   const [appointmentList, setAppointmentList] = useState([]);
+  const [query, setQuery] = useState("");
+
+  const filterList = appointmentList.filter(
+    (appointment) =>
+      appointment.petName.toLowerCase().includes(query.toLowerCase()) ||
+      appointment.ownerName.toLowerCase().includes(query.toLowerCase()) ||
+      appointment.aptNotes.toLowerCase().includes(query.toLowerCase())
+  );
 
   const getAppointments = async () => {
     const url = "data.json";
@@ -30,9 +38,9 @@ const App = () => {
         Your Appointments
       </h1>
       <AddAppointment />
-      <Search />
+      <Search query={query} onQueryChange={(myQuery) => setQuery(myQuery)} />
       <ul className="divide-y divide-gray-200">
-        {appointmentList.map((appointment) => (
+        {filterList.map((appointment) => (
           <AppointmentInfo
             key={appointment.id}
             appointment={appointment}

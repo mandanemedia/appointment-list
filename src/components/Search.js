@@ -47,7 +47,7 @@ const DropDown = () => {
     </div>
   );
 };
-const Search = () => {
+const Search = ({ query, onQueryChange }) => {
   const [sortToggle, setSortToggle] = useState(false);
 
   return (
@@ -58,10 +58,11 @@ const Search = () => {
           <label htmlFor="query" className="sr-only" />
         </div>
         <input
+          onChange={(event) => onQueryChange(event.target.value)}
+          value={query}
           type="text"
           name="query"
           id="query"
-          value=""
           className="pl-8 rounded-md focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300"
           placeholder="Search"
         />
