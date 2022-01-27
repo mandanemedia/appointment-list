@@ -9,7 +9,7 @@ const App = () => {
   const [appointmentList, setAppointmentList] = useState([]);
   const [query, setQuery] = useState("");
 
-  const filterList = appointmentList.filter(
+  const filteredList = appointmentList.filter(
     (appointment) =>
       appointment.petName.toLowerCase().includes(query.toLowerCase()) ||
       appointment.ownerName.toLowerCase().includes(query.toLowerCase()) ||
@@ -40,7 +40,7 @@ const App = () => {
       <AddAppointment />
       <Search query={query} onQueryChange={(myQuery) => setQuery(myQuery)} />
       <ul className="divide-y divide-gray-200">
-        {filterList.map((appointment) => (
+        {filteredList.map((appointment) => (
           <AppointmentInfo
             key={appointment.id}
             appointment={appointment}
