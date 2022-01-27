@@ -9,10 +9,10 @@ const App = () => {
   const [appointmentList, setAppointmentList] = useState([]);
 
   const getAppointments = async () => {
-    const url = 'data.json'
+    const url = "data.json";
     const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
       // body: JSON.stringify({ listId, description, order }),
     };
     const response = await fetch(url, requestOptions);
@@ -33,7 +33,15 @@ const App = () => {
       <Search />
       <ul className="divide-y divide-gray-200">
         {appointmentList.map((appointment) => (
-          <AppointmentInfo key={appointment.id} appointment={appointment}/>
+          <AppointmentInfo
+            key={appointment.id}
+            appointment={appointment}
+            onDelete={(id) => {
+              setAppointmentList(
+                appointmentList.filter((appointment) => appointment.id !== id)
+              );
+            }}
+          />
         ))}
       </ul>
     </div>
