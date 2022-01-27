@@ -7,6 +7,7 @@ import "./App.css";
 
 const App = () => {
   const [appointmentList, setAppointmentList] = useState([]);
+  const [lastAppointmentId, setLastAppointmentId] = useState(1);
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState("petName");
   const [orderBy, setOrderBy] = useState("asc");
@@ -35,6 +36,12 @@ const App = () => {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
     setAppointmentList(data);
+    const lastId = data.reduce(
+      (pre, current) =>
+        pre > Number(current.id) ? pre.id : Number(current.id),
+      0
+    );
+    setLastAppointmentId(lastId);
   };
   useEffect(() => {
     getAppointments();
@@ -46,7 +53,13 @@ const App = () => {
         <BiCalendar className="inline-block text-red-400 align-top" />
         Your Appointments
       </h1>
-      <AddAppointment />
+      <AddAppointment
+        lastAppointmentId={lastAppointmentId}
+        onAddAppointment={(appointment) => {
+          setAppointmentList([...appointmentList, appointment]);
+          setLastAppointmentId(appointment.id);
+        }}
+      />
       <Search
         query={query}
         onQueryChange={(myQuery) => setQuery(myQuery)}
